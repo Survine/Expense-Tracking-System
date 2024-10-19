@@ -54,5 +54,5 @@ class ExpenseTracker:
 
         # Iterate through expenses and display date, category, and amount
         for expense in expenses:
-            print(f"{expense.date:<15}{expense.category:<15}${expense.amount:<10.2f}")
+            print(f"{expense.date:<15}{expense.category:<15}Rs.{expense.amount:<10.2f}")
 
