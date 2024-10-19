@@ -1,3 +1,4 @@
+# expense.py
 from datetime import datetime
 
 class Expense:
@@ -7,13 +8,11 @@ class Expense:
         self.date = self.validate_date(date)
     
     def validate_amount(self, amount: float) -> float:
-        """Validate the amount of the expense."""
         if amount <= 0:
             raise ValueError("Amount must be greater than 0")
         return amount
     
     def validate_date(self, date: str) -> str:
-        """Validate the date format (YYYY-MM-DD)."""
         try:
             datetime.strptime(date, "%Y-%m-%d")
         except ValueError:
