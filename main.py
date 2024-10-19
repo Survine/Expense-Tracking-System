@@ -22,7 +22,7 @@ def main():
         choice = input("Select an option (1-4): ")
 
         if choice == '1':
-            print("Select a category:")
+            print("\n---------------------------------------")
             display_categories(user.tracker.categories)
 
             category_choice = input(f"Select a category (1-{len(user.tracker.categories) + 1}): ")
@@ -45,7 +45,7 @@ def main():
             year = int(input("Enter year (YYYY): "))
             month = int(input("Enter month (1-12, or 0 for all months): "))
             total = user.tracker.get_total_expenses(month, year)
-            print(f"Total expenses for {month}/{year}: ${total:.2f}")
+            print(f"Total expenses for {month}/{year}: Rs.{total:.2f}")
 
         elif choice == '3':
             user.generate_report_for_user()

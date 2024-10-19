@@ -32,7 +32,7 @@ class ExpenseTracker:
         try:
             expense = Expense(category, amount, date)
             save_transaction_to_db(self.user_name, expense)
-            print(f"Expense added: {expense.category}, ${expense.amount:.2f}, {expense.date}")
+            print(f"Expense added: {expense.category}, Rs.{expense.amount:.2f}, {expense.date}")
         except ValueError as e:
             print(f"Error adding expense: {e}")
 
@@ -41,8 +41,18 @@ class ExpenseTracker:
         return total_expenses(self.user_name, month, year)
 
     def generate_report(self):
-        """Generate and print the expense report by category."""
-        category_totals = categorize_expenses(self.user_name)
+        """Generate and print the expense report by category, including date and amount."""
+        expenses = load_transactions_from_db(self.user_name)
+        
+        if not expenses:
+            print("No expenses found.")
+            return
+
+        # Print the header of the report
         print("\nExpense Report:")
-        for category, total in category_totals.items():
-            print(f"{category.capitalize()}: ${total:.2f}")
+        print(f"{'Date':<15}{'Category':<15}{'Amount':<10}")
+
+        # Iterate through expenses and display date, category, and amount
+        for expense in expenses:
+            print(f"{expense.date:<15}{expense.category:<15}${expense.amount:<10.2f}")
+
