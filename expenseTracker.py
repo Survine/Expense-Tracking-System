@@ -49,7 +49,7 @@ class ExpenseTracker:
 
         # Print the header of the report
         print("\nExpense Report:")
-        print(f"{'Date':<15}{'Category':<15}{'Amount':<10}")
+        print(f"{'Date':<15}{'Category':<15}{'Amount':<10}") #For alignment
 
         # Iterate through expenses and display date, category, and amount
         for expense in expenses:
