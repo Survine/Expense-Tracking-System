@@ -1,4 +1,3 @@
-# expense.py
 from datetime import datetime
 
 class Expense:

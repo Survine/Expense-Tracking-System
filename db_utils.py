@@ -1,4 +1,3 @@
-# db_utils.py
 import sqlite3
 from collections import defaultdict
 from expense import Expense

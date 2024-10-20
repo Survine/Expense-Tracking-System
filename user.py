@@ -1,4 +1,3 @@
-# user.py
 from expenseTracker import ExpenseTracker
 
 class User:

@@ -1,4 +1,3 @@
-# expenseTracker.py
 from db_utils import ensure_db_exists, load_transactions_from_db, save_transaction_to_db, total_expenses, categorize_expenses
 from expense import Expense
 
