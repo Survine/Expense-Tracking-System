@@ -1,8 +1,10 @@
 from db_utils import ensure_db_exists, load_transactions_from_db, save_transaction_to_db, total_expenses, categorize_expenses
 from expense import Expense
 
+
 class ExpenseTracker:
-    DEFAULT_CATEGORIES = ["food", "transport", "utilities", "entertainment", "other"]
+    DEFAULT_CATEGORIES = ["food", "transport",
+                          "utilities", "entertainment", "other"]
 
     def __init__(self, user_name: str):
         self.user_name = user_name
@@ -31,9 +33,19 @@ class ExpenseTracker:
         try:
             expense = Expense(category, amount, date)
             save_transaction_to_db(self.user_name, expense)
-            print(f"Expense added: {expense.category}, Rs.{expense.amount:.2f}, {expense.date}")
+            print(f"Expense added: {expense.category}, Rs.{
+                  expense.amount:.2f}, {expense.date}")
         except ValueError as e:
             print(f"Error adding expense: {e}")
+
+    def calculate_expenses(self, expenses):
+        """ Calculate total expenses for each category."""
+        projected_expenses = {}
+
+        for year in range(1, 6):
+            total = sum(expense.amount for expense in expenses if expense.date.year == year)
+            projected_expenses[f"Year {year}"] = total
+        return projected_expenses
 
     def get_total_expenses(self, month: int, year: int) -> float:
         """Calculate total expenses for a given month and year."""
@@ -42,16 +54,16 @@ class ExpenseTracker:
     def generate_report(self):
         """Generate and print the expense report by category, including date and amount."""
         expenses = load_transactions_from_db(self.user_name)
-        
+
         if not expenses:
             print("No expenses found.")
             return
 
         # Print the header of the report
         print("\nExpense Report:")
-        print(f"{'Date':<15}{'Category':<15}{'Amount':<10}") #For alignment
+        print(f"{'Date':<15}{'Category':<15}{'Amount':<10}")  # For alignment
 
         # Iterate through expenses and display date, category, and amount
         for expense in expenses:
-            print(f"{expense.date:<15}{expense.category:<15}Rs.{expense.amount:<10.2f}")
-
+            print(f"{expense.date:<15}{expense.category:<15}Rs.{
+                  expense.amount:<10.2f}")
