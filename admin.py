@@ -1,4 +1,8 @@
+import logging
 from admin_db_utils import view_all_users, view_user_expenses, delete_user, update_user_expense
+
+# Set up logging
+logging.basicConfig(filename='admin_actions.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 class Admin:
     def __init__(self):
@@ -8,9 +12,11 @@ class Admin:
         """Simple password authentication for admin access."""
         password = input("Enter admin password: ")
         if password == self.admin_password:
+            logging.info("Admin access granted")
             print("Admin access granted.")
             return True
         else:
+            logging.warning("Failed admin login attempt")
             print("Incorrect password.")
             return False
 
@@ -34,6 +40,7 @@ class Admin:
                     print("\n--- All Users ---")
                     for user in users:
                         print(f"User: {user}")
+                    logging.info(f"Viewed all users: {users}")
                 else:
                     print("No users found.")
                     
@@ -44,8 +51,10 @@ class Admin:
                     print(f"\n--- Expenses for {user_name} ---")
                     for expense in expenses:
                         print(f"ID: {expense[0]}, Category: {expense[1]}, Amount: Rs.{expense[2]:.2f}, Date: {expense[3]}")
+                    logging.info(f"Viewed expenses for user: {user_name}")
                 else:
                     print(f"No expenses found for user {user_name}.")
+                    logging.info(f"No expenses found for user: {user_name}")
 
             elif choice == '3':
                 user_name = input("Enter user name: ")
@@ -55,14 +64,17 @@ class Admin:
                 new_amount = float(new_amount) if new_amount else None
                 new_date = input("Enter new date (YYYY-MM-DD, leave blank if unchanged): ")
                 result = update_user_expense(user_name, expense_id, new_category, new_amount, new_date)
+                logging.info(f"Updated expense {expense_id} for user {user_name}: {result}")
                 print(result)
                 
             elif choice == '4':
                 user_name = input("Enter the user name to delete: ")
                 result = delete_user(user_name)
+                logging.info(f"Deleted user: {user_name}")
                 print(result)
                 
             elif choice == '5':
+                logging.info("Admin session ended")
                 print("Exiting admin menu.")
                 break
 
